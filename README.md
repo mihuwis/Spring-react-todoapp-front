@@ -1,3 +1,10 @@
+npm install react-router-dom  added to handle routing on front side 
+
+npm install formik
+npm install moment
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
