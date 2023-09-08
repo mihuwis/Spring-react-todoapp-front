@@ -25,7 +25,7 @@ function LoginComponent() {
         if (authContext.login(userName, password)){
             navigate(`/welcome/${userName}`)
         } else {
-            setErrorLogin('Authentication failed successfully') 
+            setErrorLogin('Authentication failed successfully :) ') 
         }
     }
 
