@@ -1,22 +1,25 @@
-import { Form, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { retrieveTodoApi, updateTodoApi } from "../api/TodoApiService";
 import { useAuth } from "./security/AuthContext";
 import { useEffect, useState } from "react";
-import { ErrorMessage, Field, Formik } from "formik";
+import { ErrorMessage, Form, Field, Formik } from "formik";
 
 function TodoComponent() {
 
     const {id} = useParams();
-    const username = useAuth().username;
+    const navigate = useNavigate();
 
-    const [description, setDescription] = useState('');
-    const [targetDate, setTargetDate] = useState('');
+    const [description, setDescription] = useState("");
+    const [targetDate, setTargetDate] = useState("");
+
+    const context = useAuth();
+    const username = context.username;
 
     useEffect(
         () => retrieveTodos(), [id]
     )
 
-    const retrieveTodos = () => {
+    function retrieveTodos(){
         retrieveTodoApi(username, id)
             .then(response => {
                 setDescription(response.data.description);
@@ -25,17 +28,18 @@ function TodoComponent() {
             .catch(err => console.log(err))
     }
 
-    const onSubmit = (values) => {
+    function onSubmit(values){
         console.log(values)
         const todo = {
             id: id, 
             username: username, 
-            description: description, 
-            targetDate: targetDate, 
+            description: values.description, 
+            targetDate: values.targetDate, 
             done: false
         }
         console.log(todo)
         updateTodoApi(username, id, todo);
+        navigate("/todos")
     }
 
     const validate = (values) => {
@@ -59,7 +63,8 @@ function TodoComponent() {
                     onSubmit={onSubmit}
                     validate={validate}
                     validateOnChange={false}
-                    validateOnBlur={false}>
+                    validateOnBlur={false}
+                >
                 {
                     (props)=>(
                         <Form>

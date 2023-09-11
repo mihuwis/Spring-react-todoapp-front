@@ -26,9 +26,10 @@ function TodosComponent() {
     useEffect (() => refreshTodos(), [])
 
     function refreshTodos() {
+        console.log("Freshhh ");
         retrieveAllTodosForUsernameApi(username)
-        .then((response) => {
-            console.log("refresh todos:" +  response.data);
+        .then(response => {
+            console.log(response.data);
             setTodos(response.data)
         }).catch(error => console.log(error))
     }
@@ -36,10 +37,10 @@ function TodosComponent() {
     function deleteTodo(id) {
         console.log("deleted: " +id);
         deleteTodoApi(username ,id).then(() => 
-            () => {
+            {
                 setMsg('Item deleted')
                 console.log("xxxxxxxxxxxxx ");
-                refreshTodos()
+                refreshTodos();
             }
         ).catch(error => console.log(error))
     }
@@ -65,23 +66,26 @@ function TodosComponent() {
                         </tr>
                     </thead>
                     <tbody>
-                        {todos.map(elem => {return(
-                    <tr key={elem.id}>
-                        <td>{elem.description}</td>
-                        <td>{elem.done.toString()}</td>
-                        <td>{elem.targetDate.toString()}</td>
-                        <td> 
-                            <button className="btn btn-success" onClick={() => updateTodo(elem.id)}>
-                                Edit
-                            </button>
-                        </td>
-                        <td> 
-                            <button className="btn btn-warning" onClick={() => deleteTodo(elem.id)}>
-                                Delete
-                            </button>
-                        </td>
-                    </tr>
-                    )})}
+                        {
+                            todos.map(elem => (
+                                <tr key={elem.id}>
+                                    <td>{elem.description}</td>
+                                    <td>{elem.done.toString()}</td>
+                                    <td>{elem.targetDate.toString()}</td>
+                                    <td> 
+                                        <button className="btn btn-success" 
+                                            onClick={() => updateTodo(elem.id)}>
+                                            Edit
+                                        </button>
+                                    </td>
+                                    <td> 
+                                        <button className="btn btn-warning" 
+                                            onClick={() => deleteTodo(elem.id)}>
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                    ))}
                     </tbody>
                 </table>
             </div>
