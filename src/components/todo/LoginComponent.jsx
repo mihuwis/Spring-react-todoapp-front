@@ -21,8 +21,8 @@ function LoginComponent() {
         setpassword(e.target.value);
     }
 
-    const handleSubmit = () => {
-        if (authContext.login(userName, password)){
+    async function handleSubmit () {
+        if (await authContext.login(userName, password)){
             navigate(`/welcome/${userName}`)
         } else {
             setErrorLogin('Authentication failed successfully :) ') 

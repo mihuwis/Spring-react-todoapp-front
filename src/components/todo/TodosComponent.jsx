@@ -26,28 +26,27 @@ function TodosComponent() {
     useEffect (() => refreshTodos(), [])
 
     function refreshTodos() {
-        console.log("Freshhh ");
         retrieveAllTodosForUsernameApi(username)
         .then(response => {
-            console.log(response.data);
             setTodos(response.data)
         }).catch(error => console.log(error))
     }
 
     function deleteTodo(id) {
-        console.log("deleted: " +id);
         deleteTodoApi(username ,id).then(() => 
             {
                 setMsg('Item deleted')
-                console.log("xxxxxxxxxxxxx ");
                 refreshTodos();
             }
         ).catch(error => console.log(error))
     }
 
     function updateTodo(id) {
-        console.log(id);
         navigate(`/todo/${id}`)
+    }
+
+    function addTodo() {
+        navigate(`/todo/-1`)
     }
 
     return (
@@ -89,6 +88,7 @@ function TodosComponent() {
                     </tbody>
                 </table>
             </div>
+            <div className="btn btn-success m-3" onClick={addTodo}>Add New</div>
         </div>
     )
 }

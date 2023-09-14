@@ -1,11 +1,14 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { retrieveHello, retrieveHelloBean, retrieveHelloWithVar } from "../api/HelloApi";
 import { useState } from "react";
+import { AuthContext, useAuth } from "./security/AuthContext";
 
 function WelcomeComponent() {
     const { username } = useParams();
     const navigate = useNavigate();
     const [msg, setMsg] = useState(null)
+
+    const token = useAuth().token;
 
     const handleSubmit = () => {
         navigate('/todos')
@@ -23,7 +26,7 @@ function WelcomeComponent() {
         //     setMsg(result.data.msg)
         // }).catch(error => console.log(error))
 
-        retrieveHelloWithVar("Mihu").then((result)=>{
+        retrieveHelloWithVar(username, token).then((result)=>{
             console.log(result.data)
             setMsg(result.data.msg)
         }).catch(error => console.log(error))

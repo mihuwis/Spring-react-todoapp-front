@@ -3,6 +3,9 @@ npm install react-router-dom  added to handle routing on front side
 npm install formik
 npm install moment
 
+$ npm install --save-dev @babel/plugin-transform-private-property-in-object
+
+
 
 
 # Getting Started with Create React App
